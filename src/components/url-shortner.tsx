@@ -76,13 +76,13 @@ export default function URLShortener() {
           {shortenedUrl && (
             <div className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
               <div className="flex items-center justify-between flex-wrap gap-y-4">
-                <div className="flex-1">
+                <div className="flex-1 flex-wrap">
                   <p className="text-sm text-gray-600 mb-1">
                     Your shortened URL:
                   </p>
-                  <p className="text-lg font-mono text-green-700">
+                    <p className="text-lg font-mono text-green-700 break-all">
                     {shortenedUrl}
-                  </p>
+                    </p>
                 </div>
                 <div className="flex gap-2">
                   <Button
