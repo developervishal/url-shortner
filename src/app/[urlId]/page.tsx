@@ -1,4 +1,7 @@
 import NotFound from "@/components/not-found";
+import { db } from "@/db";
+import { eq } from "drizzle-orm";
+import { urlsTable } from "@/db/schema";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -9,13 +12,15 @@ interface Props {
 }
 const Page = async ({ params }: Props) => {
   const { urlId } = await params;
-  const response = await fetch(process.env.BASE_URL+`/api/url-shortner/${urlId}`);
-  const result = await response.json();
-  if (!result.success) {
+  const [data] = await db
+    .select()
+    .from(urlsTable)
+    .where(eq(urlsTable.shortUrl, urlId));
+  if (!data) {
     return <NotFound />;
   }
-  if (result?.data?.originalUrl) {
-    redirect(result.data.originalUrl);
+  if (data.originalUrl) {
+    redirect(data.originalUrl);
   }
 };
 
